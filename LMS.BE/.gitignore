@@ -1,0 +1,34 @@
+##########################
+# ASP.NET / Visual Studio
+##########################
+
+# VS folder
+.vs/
+
+# Thư mục build
+**/bin/
+**/obj/
+**/Debug/
+**/Release/
+
+# File user / máy cá nhân
+*.user
+*.suo
+*.userosscache
+
+# Test & logs
+TestResults/
+*.log
+
+# Một số output khác
+*.cache
+*.ilk
+*.pdb
+
+# Nếu có ảnh/tài nguyên không muốn commit
+# (tuỳ cấu trúc project của bạn)
+# wwwroot/images/
+# wwwroot/uploads/
+# **/*.png
+# **/*.jpg
+# **/*.jpeg
