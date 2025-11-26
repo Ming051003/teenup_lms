@@ -14,9 +14,9 @@ namespace LMS.API
 
             // Tự chọn file appsettings.*.json theo môi trường (Development/Production)
             builder.Configuration
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true)
-                .AddEnvironmentVariables();
+               .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+               .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true)
+               .AddEnvironmentVariables();
 
             // Đăng ký DbContext với SQL Server và bật hoặc tắt logging dữ liệu nhạy cảm dựa trên môi trường
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -47,11 +47,17 @@ namespace LMS.API
             // Cấu hình CORS để cho phép frontend từ các domain cụ thể
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy("AllowReact",
-                    policy => policy
-                        .AllowAnyOrigin()   // Cho phép tất cả origin
-                        .AllowAnyHeader()   // Cho phép tất cả header
-                        .AllowAnyMethod()); // Cho phép GET, POST, PUT, DELETE...
+                options.AddPolicy("AllowFrontend", policy =>
+                {
+                    policy.WithOrigins(
+                        "https://teenup-c2911.web.app",
+                        "http://localhost:5173",
+                        "http://localhost:3000"
+                    )
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials();
+                });
             });
 
 
@@ -68,7 +74,7 @@ namespace LMS.API
 
             app.UseHttpsRedirection();  // Chuyển hướng tất cả yêu cầu HTTP sang HTTPS
             app.UseRouting();  // Kích hoạt routing cho các controller
-            app.UseCors("AllowReactApp");  // Áp dụng CORS chính sách cho ứng dụng
+            app.UseCors("AllowFrontend");
             app.UseAuthorization();  // Cấu hình xác thực và ủy quyền
 
             app.MapControllers();  // Map các controller API vào pipeline

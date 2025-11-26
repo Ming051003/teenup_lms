@@ -1,0 +1,43 @@
+version: '3.4'  # Phiên bản Compose
+
+services:
+  # Backend - Ứng dụng ASP .NET Core
+  backend:
+    build:
+      context: .  # Thư mục chứa Dockerfile backend
+      dockerfile: Dockerfile.backend
+    container_name: backend
+    ports:
+      - "5000:80"  # Port 5000 trên máy host sẽ chuyển tiếp tới port 80 của container
+    depends_on:
+      - db  # Đảm bảo container DB đã được khởi động trước
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=localhost;Database=LMS;User=sa;Password=123
+
+  # SQL Server - Cơ sở dữ liệu
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest  # Sử dụng image SQL Server mới nhất
+    container_name: sqlserver
+    environment:
+      - ACCEPT_EULA=Y  # Chấp nhận EULA
+      - SA_PASSWORD=123  # Mật khẩu cho tài khoản sa
+    ports:
+      - "1433:1433"  # Mở cổng 1433 để kết nối với SQL Server
+    volumes:
+      - sql_data:/var/opt/mssql  # Sử dụng volume để lưu trữ dữ liệu của SQL Server
+
+  # Frontend - Ứng dụng ReactJS
+  frontend:
+    build:
+      context: .  # Thư mục chứa Dockerfile frontend
+      dockerfile: Dockerfile.frontend
+    container_name: frontend
+    ports:
+      - "3000:80"  # Port 3000 trên máy host sẽ chuyển tiếp tới port 80 của container
+    depends_on:
+      - backend  # Đảm bảo container Backend đã được khởi động trước
+
+# Định nghĩa volume để lưu trữ dữ liệu của SQL Server
+volumes:
+  sql_data:

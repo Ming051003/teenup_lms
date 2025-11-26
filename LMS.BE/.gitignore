@@ -11,6 +11,8 @@
 **/Debug/
 **/Release/
 
+appsettings.json
+
 # File user / máy cá nhân
 *.user
 *.suo

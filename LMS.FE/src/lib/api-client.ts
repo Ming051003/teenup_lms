@@ -17,7 +17,7 @@ import {
 class TeenUpApiClient {
   private api: AxiosInstance;
 
-  constructor(baseURL: string = 'https://localhost:7199/api') {
+  constructor(baseURL: string ='https://lmsteenup.runasp.net/api') {
     this.api = axios.create({
       baseURL,
       headers: {
