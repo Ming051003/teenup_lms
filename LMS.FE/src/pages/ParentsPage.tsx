@@ -143,9 +143,12 @@ export default function ParentsPage() {
         </div>
         <Dialog open={isFormOpen} onOpenChange={setIsFormOpen}>
           <DialogTrigger asChild>
-            <Button size="lg" className="gap-2 shadow-md hover:shadow-lg transition-shadow w-full sm:w-auto h-12 md:h-auto">
+            <Button 
+              size="lg" 
+              className="gap-2 shadow-md hover:shadow-lg transition-shadow w-full sm:w-auto px-4 md:px-6 py-6 md:py-2.5 min-w-[140px] flex items-center justify-center"
+            >
               <Plus className="h-4 w-4 md:h-5 md:w-5" />
-              <span className="text-sm md:text-base">Add Parent</span>
+              <span className="text-sm md:text-base font-medium">Add Parent</span>
             </Button>
           </DialogTrigger>
           <DialogContent className="max-w-md">

@@ -1,5 +1,4 @@
-﻿
-using AutoMapper;
+﻿using AutoMapper;
 using LMS.API.Extensions;
 using LMS.BLL.AutoMapper;
 using LMS.Model;
@@ -13,57 +12,68 @@ namespace LMS.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            // Tự chọn file appsettings.*.json theo môi trường (Development/Production)
             builder.Configuration
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
-            // Đăng ký DbContext
+
+            // Đăng ký DbContext với SQL Server và bật hoặc tắt logging dữ liệu nhạy cảm dựa trên môi trường
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")).EnableSensitiveDataLogging());
-            // Đăng ký các service custom
+            {
+                var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+                options.UseSqlServer(connectionString);
+
+                // EnableSensitiveDataLogging chỉ bật trong môi trường phát triển
+                if (builder.Environment.IsDevelopment())
+                {
+                    options.EnableSensitiveDataLogging();
+                }
+            });
+
+            // Đăng ký các service custom (ví dụ, các dịch vụ nghiệp vụ, AutoMapper, v.v.)
             builder.Services.RegisterServices(builder.Configuration);
-            // Cấu hình AutoMapper
+
+            // Cấu hình AutoMapper cho việc ánh xạ đối tượng
             builder.Services.AddAutoMapper(typeof(MappingProfile));
 
+            // Đăng ký các controller API
             builder.Services.AddControllers();
 
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            // Cấu hình Swagger/OpenAPI cho việc test API qua giao diện UI
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            // Cấu hình CORS để cho phép frontend từ các domain cụ thể
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy("AllowReactApp", policy =>
-                {
-                    policy.WithOrigins("https://localhost:7199",
-                        "http://localhost:5173")
-                          .AllowAnyHeader()
-                          .AllowAnyMethod()
-                          .AllowCredentials();
-                });
+                options.AddPolicy("AllowReact",
+                    policy => policy
+                        .AllowAnyOrigin()   // Cho phép tất cả origin
+                        .AllowAnyHeader()   // Cho phép tất cả header
+                        .AllowAnyMethod()); // Cho phép GET, POST, PUT, DELETE...
             });
 
 
+
+            // Xây dựng ứng dụng
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
+            // Cấu hình pipeline HTTP request
             if (app.Environment.IsDevelopment())
             {
-                app.UseSwagger();
-                app.UseSwaggerUI();
+                app.UseSwagger();  // Cấu hình Swagger trong môi trường phát triển
+                app.UseSwaggerUI();  // Cung cấp giao diện người dùng cho Swagger
             }
 
-            app.UseHttpsRedirection();
-            app.UseRouting();
-            app.UseCors("AllowReactApp");
-            app.UseAuthorization();
-            app.UseAuthorization();
+            app.UseHttpsRedirection();  // Chuyển hướng tất cả yêu cầu HTTP sang HTTPS
+            app.UseRouting();  // Kích hoạt routing cho các controller
+            app.UseCors("AllowReactApp");  // Áp dụng CORS chính sách cho ứng dụng
+            app.UseAuthorization();  // Cấu hình xác thực và ủy quyền
 
+            app.MapControllers();  // Map các controller API vào pipeline
 
-            app.MapControllers();
-
-            app.Run();
+            app.Run();  // Chạy ứng dụng
         }
     }
 }
