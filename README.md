@@ -8,7 +8,7 @@ Hệ thống đã được deploy chỉ cần truy cập link sau để s
 
 - **Backend API:** [https://lmsteenup.runasp.net/](https://lmsteenup.runasp.net/)
 - **Frontend UI:** [https://teenup-c2911.web.app/](https://teenup-c2911.web.app/)
-- **Swagger UI:** [https://teenup-c2911.web.app/](https://lmsteenup.runasp.net/swagger/index.html)
+- **Swagger UI:** [https://lmsteenup.runasp.net/swagger/index.html](https://lmsteenup.runasp.net/swagger/index.html)
 ---
 
 ## 2. **Cấu Trúc Cơ Sở Dữ Liệu**
