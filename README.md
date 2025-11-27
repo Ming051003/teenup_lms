@@ -2,11 +2,13 @@
 
 TeenUp Learning Management System là hệ thống quản lý học sinh và lớp học, cho phép phụ huynh theo dõi và quản lý thông tin học sinh của mình, đăng ký lớp học, và quản lý các gói đăng ký học.
 
+Hệ thống đã được deploy chỉ cần truy cập link sau để sử dụng: https://teenup-c2911.web.app
+
 ## 1. **Giới Thiệu**
 
 - **Backend API:** [https://lmsteenup.runasp.net/](https://lmsteenup.runasp.net/)
 - **Frontend UI:** [https://teenup-c2911.web.app/](https://teenup-c2911.web.app/)
-
+- **Swagger UI:** [[https://teenup-c2911.web.app/](https://lmsteenup.runasp.net/swagger/index.html)
 ---
 
 ## 2. **Cấu Trúc Cơ Sở Dữ Liệu**
