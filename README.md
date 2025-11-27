@@ -38,7 +38,7 @@ Hệ thống sử dụng 5 bảng chính trong cơ sở dữ liệu:
 
 ### 4. `Subscriptions`
 - **Khóa chính:** `id`
-- Các trường: `packageName`, `startDate`, `endDate`, `totalSessions`, `usedSessions`, `status` *(ACTIVE, EXPIRED, SUSPENDED, COMPLETED)*
+- Các trường: `packageName`, `startDate`, `endDate`, `totalSessions`, `usedSessions`, `status` *(ACTIVE, EXPIRED, COMPLETED)*
 - Khóa ngoại: `student_id → Students`
 - Xóa mềm, theo dõi số phiên học, tự động hoàn tất khi kết thúc
 - Quan hệ: Một gói đăng ký thuộc về một học sinh (Many-to-One với `Students`)
