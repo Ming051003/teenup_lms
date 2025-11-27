@@ -67,10 +67,10 @@ Parent (1) ←→ (N) Student (1) ←→ (N) Subscription
 
 ```http
 # Lấy tất cả phụ huynh
-GET https://lmsteenup.runasp.net/api/parents
+GET /api/parents
 
 # Tạo mới một phụ huynh
-POST https://lmsteenup.runasp.net/api/parents
+POST /api/parents
 Content-Type: application/json
 {
   "name": "John Doe",
@@ -83,20 +83,20 @@ Content-Type: application/json
 GET /api/students
 
 # Tạo mới một học sinh
-POST https://lmsteenup.runasp.net/api/students
+POST /api/students
 Content-Type: application/json
 {
   "name": "Jane Doe",
   "dob": "2010-05-15",
-  "gender": "FEMALE",
+  "gender": 0,
   "currentGrade": 8,
   "parentId": 1
 }
 # Lấy tất cả lớp học
-GET https://lmsteenup.runasp.net/api/classes
+GET /api/classes
 
 # Tạo mới một lớp học
-POST https://lmsteenup.runasp.net/api/classes
+POST /api/classes
 Content-Type: application/json
 {
   "name": "Advanced Math Grade 8",
@@ -109,7 +109,7 @@ Content-Type: application/json
 }
 
 # Tạo gói đăng ký cho học sinh
-POST https://lmsteenup.runasp.net/api/subscriptions
+POST /api/subscriptions
 Content-Type: application/json
 {
   "packageName": "Math 20 Sessions",
@@ -117,11 +117,11 @@ Content-Type: application/json
   "endDate": "2025-12-31",
   "totalSessions": 20,
   "usedSessions": 0,
-  "status": "ACTIVE",
+  "status": 1,
   "studentId": 1
 }
 # Đăng ký học sinh vào lớp học
-POST https://lmsteenup.runasp.net/api/classes/8/register
+POST /api/classes/8/register
 Content-Type: application/json
 {
     "id": 62,
