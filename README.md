@@ -89,7 +89,7 @@ Content-Type: application/json
   "name": "Jane Doe",
   "dob": "2010-05-15",
   "gender": 0,
-  "currentGrade": 8,
+  "currentGrade": "Grade 8",
   "parentId": 1
 }
 # Lấy tất cả lớp học
@@ -101,9 +101,9 @@ Content-Type: application/json
 {
   "name": "Advanced Math Grade 8",
   "subject": "Mathematics",
-  "dayOfWeek": "MONDAY",
-  "startTime": "14:00",
-  "endTime": "16:00",
+  "dayOfWeek": 1, (Monday: 1, Tuesday: 2, Wednesday: 3, Thursday: 4, Friday: 5, Saturday: 6, Sunday: 0)
+  "startTime": "14:00:00",
+  "endTime": "16:00:00",
   "teacherName": "Mr. Smith",
   "maxStudents": 20
 }
