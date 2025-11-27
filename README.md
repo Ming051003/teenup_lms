@@ -18,7 +18,6 @@ Hệ thống sử dụng 5 bảng chính trong cơ sở dữ liệu:
 ### 1. `Parents`
 - **Khóa chính:** `id`
 - Các trường: `name`, `phone` *(duy nhất)*, `email` *(duy nhất)*
-- Xóa mềm: `deleted_at`
 - Quan hệ: Một phụ huynh có thể có nhiều học sinh (One-to-Many với `Students`).
 
 ### 2. `Students`
