@@ -64,6 +64,7 @@ namespace LMS.API
 
             // Xây dựng ứng dụng
             var app = builder.Build();
+            var enableHttpsRedirection = app.Configuration.GetValue<bool>("EnableHttpsRedirection", true);
 
             // Cấu hình pipeline HTTP request
             if (app.Environment.IsDevelopment())
@@ -72,7 +73,10 @@ namespace LMS.API
                 app.UseSwaggerUI();  // Cung cấp giao diện người dùng cho Swagger
             }
 
-            app.UseHttpsRedirection();  // Chuyển hướng tất cả yêu cầu HTTP sang HTTPS
+            if (enableHttpsRedirection)
+            {
+                app.UseHttpsRedirection();  // Chuyển hướng tất cả yêu cầu HTTP sang HTTPS
+            }
             app.UseRouting();  // Kích hoạt routing cho các controller
             app.UseCors("AllowFrontend");
             app.UseAuthorization();  // Cấu hình xác thực và ủy quyền
